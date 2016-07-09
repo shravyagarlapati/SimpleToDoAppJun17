@@ -4,7 +4,7 @@ SimpleToDoApp is an android app that allows building a todo list and basic todo 
 
 Submitted by: Shravya Garlapati
 
-Time spent: 4 hours spent in total
+Time spent: 5 hours spent in total
 
 ## User Stories
 
@@ -24,7 +24,7 @@ The following **optional** features are implemented:
 * [ ] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
 ## Video Walkthrough 
-Here's a walkthrough of implemented user stories:
+Here's a walkthrough of the ToDo App:
 
 <img src='http://i.imgur.com/os4duDI.gif' title='ToDo App Video Walkthrough' width='' alt='ToDo App Video Walkthrough' />
 
@@ -32,7 +32,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2016] [Shravya Garlapati]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
