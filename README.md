@@ -26,7 +26,7 @@ The following **optional** features are implemented:
 ## Video Walkthrough 
 Here's a walkthrough of the ToDo App:
 
-<img src='http://i.imgur.com/os4duDI.gif' title='ToDo App Video Walkthrough' width='' alt='ToDo App Video Walkthrough' />
+<img src='http://i.imgur.com/EqHZMUv.gif' title='ToDo App Video Walkthrough' width='' alt='ToDo App Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
