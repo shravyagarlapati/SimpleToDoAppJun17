@@ -26,7 +26,7 @@ The following **optional** features are implemented:
 ## Video Walkthrough 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://imgur.com/os4duDI' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/os4duDI.gifv' title='ToDo App Video Walkthrough' width='' alt='ToDo App Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
