@@ -19,10 +19,12 @@ public class EditItemActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ToDoItemDatabaseHelper databaseHelper = ToDoItemDatabaseHelper.getInstance(this);
+
         //Fetch an intent and pass data between activities
         final Intent get_data = getIntent();
         etEditText_form2 = (EditText) findViewById(R.id.etEditTextForm2);
-        String old_text = get_data.getExtras().getString("listItemText");
+        final String old_text = get_data.getExtras().getString("listItemText");
         etEditText_form2.append(old_text);
         final int list_index = get_data.getExtras().getInt("position");
 
@@ -33,9 +35,11 @@ public class EditItemActivity extends AppCompatActivity {
                 //Onclick save button sends the data back to Launch activity for persistence
                 get_data.putExtra("listItemText", etEditText_form2.getText().toString());
                 get_data.putExtra("position", list_index);
+                get_data.putExtra("old_text", old_text);
                 setResult(RESULT_OK, get_data);
                 finish();
             }
         });
+
     }
 }

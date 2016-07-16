@@ -12,11 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SimpleToDoActivity extends AppCompatActivity {
 
@@ -24,6 +21,7 @@ public class SimpleToDoActivity extends AppCompatActivity {
     ArrayAdapter<String> todoAdapter;
     ListView lvItems;
     EditText etEditText;
+    ToDoItemDatabaseHelper databaseHelper ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +29,9 @@ public class SimpleToDoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_simple_to_do);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Get the DB instance
+        databaseHelper = ToDoItemDatabaseHelper.getInstance(this);
 
         lvItems = (ListView) findViewById(R.id.lvItems);
         populateArrayItems();
@@ -55,7 +56,17 @@ public class SimpleToDoActivity extends AppCompatActivity {
     public void populateArrayItems()
     {
         //Read the list of items from file and populate in the app
-        readItems();
+        //readItems();
+
+        //ToDoItemDatabaseHelper databaseHelper = ToDoItemDatabaseHelper.getInstance(this);
+        List<ToDo> tempToDo = databaseHelper.getAllToDoItems();
+        todoListItems = new ArrayList<String>();
+        for (ToDo each_item : tempToDo)
+        {
+            System.out.println("Populated Data:"+each_item.itemValue);
+            todoListItems.add(each_item.itemValue);
+        }
+
         todoAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, todoListItems);
     }
 
@@ -66,9 +77,14 @@ public class SimpleToDoActivity extends AppCompatActivity {
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String item_to_be_deleted = todoListItems.get(position);
+                databaseHelper.deleteToDoItem(item_to_be_deleted);
+
                 todoListItems.remove(position);
                 todoAdapter.notifyDataSetChanged();
-                writeItems();
+
+                //writeItems();
                 return true;
             }
         });
@@ -102,9 +118,15 @@ public class SimpleToDoActivity extends AppCompatActivity {
         if(text_val.length()>0)
             todoAdapter.add(text_val);
         etEditText.setText("");
-        writeItems();
+
+        ToDo todo = new ToDo();
+        todo.itemValue = text_val;
+        databaseHelper.addOrUpdateToDoItem(todo);
+
+        //writeItems();
     }
 
+    /*
     private void readItems() {
         //Read list of items from the file
         File fileDir = getFilesDir();
@@ -130,16 +152,23 @@ public class SimpleToDoActivity extends AppCompatActivity {
         }
     }
 
+    */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Edit the listview and persist them in file
         if (resultCode == RESULT_OK && requestCode == 20) {
             String name = data.getExtras().getString("listItemText");
             int index = data.getExtras().getInt("position");
-            todoListItems.set(index,name);
+            String old_text = data.getExtras().getString("old_text");
+
+            todoListItems.set(index, name);
             todoAdapter.notifyDataSetChanged();
 
-            writeItems();
+            ToDo toDo = new ToDo();
+            toDo.itemValue = todoListItems.get(index);
+            databaseHelper.addOrUpdateToDoItem(toDo);
+            databaseHelper.deleteToDoItem(old_text);
         }
     }
 }
